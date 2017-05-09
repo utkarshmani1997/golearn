@@ -1,8 +1,10 @@
-package main      //The package “main” tells the Go compiler that the package should compile as an executable program instead of a shared library.
+package main      //The package “main” tells the Go compiler that the package should compile as an executable program 
+                  //instead of a shared library.
 
 import (
   "fmt"         //importing the package that contains some predefined methods.
-  "flag"        //importing this package to do something with the command line arguments with the predefined methods existing in this package. 
+  "flag"        //importing this package to do something with the command line arguments with the predefined methods 
+                //existing in this package. 
   "os"          //importing this package for the system calls. 
   "net/http"    //importing this package for retrieving the source-code of the webpage requested.
   "io/ioutil"   //importing this package for reading and printing the source-code fetched.
