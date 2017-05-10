@@ -1,0 +1,8 @@
+version: v1beta2
+containers:
+- name: docker_learn
+  image: docker_learn
+  ports:
+  - name:http
+    hostPort:80
+    containerPort:8080

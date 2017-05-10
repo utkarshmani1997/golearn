@@ -3,7 +3,7 @@ package main      //The package “main” tells the Go compiler that the packag
 
 import (
   "fmt"         //importing the package that contains some predefined methods.
-  "flag"        //importing this package to do something with the command line arguments with the predefined methods 
+// "flag"        //importing this package to do something with the command line arguments with the predefined methods 
                 //existing in this package. 
   "os"          //importing this package for the system calls. 
   "net/http"    //importing this package for retrieving the source-code of the webpage requested.
@@ -12,14 +12,14 @@ import (
 )
 
 func main() {
-    flag.Parse()             //this parse the command line arguments.
-    args := flag.Args()      
+                 //this parse the command line arguments.
+    args := "http://news.ycombinator.com"       
     fmt.Println(args)       
     if len(args) < 1 {        
     fmt.Println("Please Enter the URL")  
     os.Exit(1)                                
   }
-    retrieve(args[0])        //call the retrieve function                                   
+    retrieve(args)        //call the retrieve function                                   
 }
 
 func retrieve(url string){          //gives the  source code as output.
