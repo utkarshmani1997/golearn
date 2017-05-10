@@ -35,5 +35,6 @@ func retrieve(url string){          //gives the  source code as output.
       return 
     } else{
       fmt.Println(string(body))
+      
     }
 }
