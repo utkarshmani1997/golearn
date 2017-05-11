@@ -13,7 +13,8 @@ import (
 
 func main() {
                  
-  args := flag.Parse()      
+    flag.Parse()      
+  args := flag.Args()
     fmt.Println(args)       
     if len(args) < 1 {        
     fmt.Println("Please Enter the URL")  
