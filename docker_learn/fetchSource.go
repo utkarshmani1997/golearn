@@ -13,7 +13,7 @@ import (
 
 func main() {
                  
-    args := "http://news.ycombinator.com"       
+  args := flag.Parse()      
     fmt.Println(args)       
     if len(args) < 1 {        
     fmt.Println("Please Enter the URL")  
