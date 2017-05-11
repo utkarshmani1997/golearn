@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-                 //this parse the command line arguments.
+                 
     args := "http://news.ycombinator.com"       
     fmt.Println(args)       
     if len(args) < 1 {        
