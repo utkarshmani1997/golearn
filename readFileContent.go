@@ -26,9 +26,6 @@ data := make([]byte, 300)
  
  fmt.Printf("read %d bytes: %q\n", count, data[:count])  //displaying the data of the file
  
- _, err := file.Close()
- if err != nil {
-		log.Fatal(err)
-	}
+ file.Close()
 
 }
