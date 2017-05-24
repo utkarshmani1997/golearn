@@ -8,16 +8,19 @@ import (
   "os"          //importing this package for the system calls. 
   "net/http"    //importing this package for retrieving the source-code of the webpage requested.
   "io/ioutil"   //importing this package for reading and printing the source-code fetched.
-
+  "reflect"
 )
 
 func main() {
-                 
-    flag.Parse()      
-    args := flag.Args()
+      
+      var args string
+  //  flag.Parse()      
+  //   args := flag.Args()
+    fmt.Println("Enter the URL : ")
+    fmt.Scanf("%s ",&args)
     fmt.Println(args)       
     if len(args) < 1 {        
-    fmt.Println("Please Enter the URL")  
+    fmt.Println(reflect.TypeOf(args),"Please Enter the URL")  
     os.Exit(1)                                
   }
     retrieve(args)        //call the retrieve function                                   
