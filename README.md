@@ -1,7 +1,7 @@
 # golearn
-Learning Go
-I have just started learning Go.
-This repository contains very basic programs in Go.
+Learning Go <br>
+I have just started learning Go.<br>
+This repository contains very basic programs in Go.<br>
 Some points to be noted:
 * Check for your GOPATH and put your program there only.
 * If you want to run the program from your directory then change the GOPATH to that directory.
