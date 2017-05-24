@@ -4,5 +4,6 @@ ADD . /home
         
 WORKDIR /home
 
-CMD ["go","run","fetchSource.go"]
+RUN ["go", "build"]
 
+ENTRYPOINT ["./home"]
