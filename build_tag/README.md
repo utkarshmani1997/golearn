@@ -13,3 +13,5 @@ Another approach, which is best out of all of the above
 - cd `exclude_file`
 - Run `go build -tags 'call'` to call function (call) in call.go
 - Run `go build` to call function (call) in call_tag.go
+
+Notice the difference in the tags, i.e, you will have to include `!call` in the other file, else it will show "redeclared call" error.
