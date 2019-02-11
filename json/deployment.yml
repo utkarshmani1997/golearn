@@ -1,0 +1,61 @@
+# service needs to be created first
+# in order to be accessed by pod
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: goserver-service
+spec:
+  selector:
+    app: goserver
+  ports:
+    - port: 8080
+      targetPort: 8080
+      name: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-deployment
+spec:
+  selector:
+    matchLabels:
+      app: goserver
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: goserver
+    spec:
+      containers:
+        # server is running on :8080 on container
+        # pod ip will be mapped with svc ip by use of
+        # selector.
+        - name: goserver
+          image: utkarshmani1997/test-server:test2
+          ports:
+            - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+spec:
+  selector:
+    matchLabels:
+      app: goclient
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: goclient
+    spec:
+      containers:
+        - name: goclient
+          image: utkarshmani1997/test-client:test1
+          ports:
+            - containerPort: 8080
+          env:
+          - name: MY_SERVER_IP
+            value: goserver-service
+

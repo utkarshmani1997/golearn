@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	_ "net/http/pprof"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -10,6 +11,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", handler)
+	http.HandleFunc("/hello", handler)
 	http.ListenAndServe(":8080", nil)
 }

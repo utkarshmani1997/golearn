@@ -1,8 +1,12 @@
-package main  //The package “main” tells the Go compiler that the package should compile as an executable program instead of a shared library.
+package main //The package “main” tells the Go compiler that the package should compile as an executable program instead of a shared library.
 
-import "fmt"  //importing the package that contains some predefined methods.
+import (
+	"fmt" //importing the package that contains some predefined methods.
+	"os"
+)
 
-func main(){  //Starting point
-  fmt.Println("Hello World")
+func main() { //Starting point
+	fmt.Println("Hello World")
+	cnt := os.Setenv("Heelo")
+	fmt.Println(cnt)
 }
-
