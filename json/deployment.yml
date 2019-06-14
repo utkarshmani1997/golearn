@@ -57,5 +57,5 @@ spec:
             - containerPort: 8080
           env:
           - name: MY_SERVER_IP
-            value: goserver-service
+            value: goserver-service.default.svc.cluster.local
 
