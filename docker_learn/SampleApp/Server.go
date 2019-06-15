@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"net/http"
 	_ "net/http/pprof"
+	"strings"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hi there, the end point is :  %s !", r.URL.Path[1:])
+	fmt.Fprintf(w, "Hi there, the end point is :  %s !, query: %s", strings.TrimSpace(strings.TrimPrefix(r.URL.Path, "/hello/")), r.URL.RawQuery)
 }
 
 func main() {
