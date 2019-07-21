@@ -58,6 +58,20 @@ func postorder(root *Node) {
 	fmt.Printf("%d, ", root.value)
 }
 
+func search(root *Node, input int) bool {
+	if root == nil {
+		return false
+	}
+	if input > root.value {
+		return search(root.right, input)
+	}
+	if input < root.value {
+		return search(root.left, input)
+	}
+
+	return true
+}
+
 func main() {
 	var root *Node
 	scanner := bufio.NewScanner(os.Stdin)
@@ -74,11 +88,41 @@ func main() {
 		root = buildTree(root, val)
 	}
 
+	if root == nil {
+		panic("No tree exist...exiting")
+	}
+
 	fmt.Println("*********** INORDER TRAVERSAL *************")
 	inorder(root)
 	fmt.Println("\n*********** PREORDER TRAVERSAL ************")
 	preorder(root)
 	fmt.Println("\n*********** POSTORDER TRAVERSAL ***********")
 	postorder(root)
-	fmt.Println()
+search:
+	fmt.Println("\nWould you like to search the element(Y/N): ")
+	if scanner.Scan() {
+		resp := scanner.Text()
+		if resp == "Y" || resp == "y" {
+			fmt.Println("\nEnter key to be searched: ")
+			if scanner.Scan() {
+				input := scanner.Text()
+				val, err := strconv.Atoi(input)
+				if err != nil {
+					panic(err)
+				}
+				if search(root, val) {
+					fmt.Printf("Found")
+					goto search
+				} else {
+					fmt.Printf("Not Found")
+					goto search
+				}
+			}
+		} else {
+			os.Exit(1)
+		}
+
+	} else {
+		os.Exit(1)
+	}
 }
