@@ -75,54 +75,80 @@ func search(root *Node, input int) bool {
 func main() {
 	var root *Node
 	scanner := bufio.NewScanner(os.Stdin)
-	fmt.Println("Enter integers followed by enter button:")
+menu:
+	fmt.Println("Enter response: \n1. Insert\n2. Search\n3. Delete\n4. Inorder\n5. Preorder\n6. Postorder")
 	for scanner.Scan() {
 		stdIn := scanner.Text()
-		if stdIn == "" {
-			break
-		}
-		val, err := strconv.Atoi(stdIn)
-		if err != nil {
-			panic(err)
-		}
-		root = buildTree(root, val)
-	}
-
-	if root == nil {
-		panic("No tree exist...exiting")
-	}
-
-	fmt.Println("*********** INORDER TRAVERSAL *************")
-	inorder(root)
-	fmt.Println("\n*********** PREORDER TRAVERSAL ************")
-	preorder(root)
-	fmt.Println("\n*********** POSTORDER TRAVERSAL ***********")
-	postorder(root)
-search:
-	fmt.Println("\nWould you like to search the element(Y/N): ")
-	if scanner.Scan() {
-		resp := scanner.Text()
-		if resp == "Y" || resp == "y" {
-			fmt.Println("\nEnter key to be searched: ")
+		switch stdIn {
+		case "1":
+			fmt.Println("Enter no of keys to be entered:")
 			if scanner.Scan() {
-				input := scanner.Text()
-				val, err := strconv.Atoi(input)
+				resp := scanner.Text()
+				val, err := strconv.Atoi(resp)
 				if err != nil {
 					panic(err)
 				}
-				if search(root, val) {
-					fmt.Printf("Found")
-					goto search
-				} else {
-					fmt.Printf("Not Found")
-					goto search
+				i := 0
+				for i < val {
+					scanner.Scan()
+					resp := scanner.Text()
+					val, err := strconv.Atoi(resp)
+					if err != nil {
+						panic(err)
+					}
+					root = buildTree(root, val)
+					i++
 				}
+				goto menu
 			}
-		} else {
-			os.Exit(1)
+		case "2":
+			if root != nil {
+				fmt.Println("\nEnter key to be searched: ")
+				if scanner.Scan() {
+					input := scanner.Text()
+					val, err := strconv.Atoi(input)
+					if err != nil {
+						panic(err)
+					}
+					if search(root, val) {
+						fmt.Println("Found")
+					} else {
+						fmt.Println("Not Found")
+					}
+				}
+			} else {
+				fmt.Println("Tree not found")
+			}
+			goto menu
+		case "3":
+			fmt.Println("Not implemented")
+			goto menu
+		case "4":
+			fmt.Println("*********** INORDER TRAVERSAL *************")
+			if root != nil {
+				inorder(root)
+			} else {
+				fmt.Println("Tree not found")
+			}
+			goto menu
+		case "5":
+			fmt.Println("\n*********** PREORDER TRAVERSAL ************")
+			if root != nil {
+				preorder(root)
+			} else {
+				fmt.Println("Tree not found")
+			}
+			goto menu
+		case "6":
+			fmt.Println("\n*********** POSTORDER TRAVERSAL ***********")
+			if root != nil {
+				postorder(root)
+			} else {
+				fmt.Println("Tree not found")
+			}
+			goto menu
+		default:
+			panic("Invalid input")
 		}
-
-	} else {
-		os.Exit(1)
 	}
 }
