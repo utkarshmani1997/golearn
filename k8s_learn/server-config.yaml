@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openebs-prometheus-tunables
+  namespace: openebs
+data:
+  data.txt: |-
+    This is the first configmap.
+
+---

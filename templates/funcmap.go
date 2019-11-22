@@ -27,7 +27,7 @@ func main() {
 	}
 
 	// output of .Name is input to Length as a second argument
-	tmpl, _ := template.New("myTemplate").Funcs(funcMap).Parse(string(`{{ .Name | Length " " | ge 3  }}`))
+	tmpl, _ := template.New("myTemplate").Funcs(funcMap).Parse(string(`{{ .Name | Length " " | ge 3 }}`))
 
 	templateData := TemplateData{
 		Name: `"Hello" "there" "Hi"`,
@@ -36,5 +36,5 @@ func main() {
 	var result bytes.Buffer
 
 	tmpl.Execute(&result, templateData)
-	fmt.Printf("%q", result)
+	fmt.Printf("%q", result.String())
 }

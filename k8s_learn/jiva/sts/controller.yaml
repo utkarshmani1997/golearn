@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jiva-controller
+  labels:
+    openebs.io/controller: jiva-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      openebs.io/controller: jiva-controller
+  template:
+    metadata:
+      labels:
+        openebs.io/controller: jiva-controller
+    spec:
+      containers:
+      - args:
+        - controller
+        - --frontend
+        - gotgt
+        - --clusterIP
+        - jiva-ctrl-svc.default.svc.cluster.local
+        - store1
+        command:
+        - launch
+        image: quay.io/openebs/jiva:1.2.0
+        name: jiva-controller
+        env:
+        - name: "REPLICATION_FACTOR"
+          value: "2"
+        ports:
+        - containerPort: 3260
+          protocol: TCP
+        - containerPort: 9501
+          protocol: TCP
+

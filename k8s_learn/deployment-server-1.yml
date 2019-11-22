@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: server-deployment-1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: goserver1
+    spec:
+      containers:
+        - name: goserver
+          image: utkarshmani1997/goserver:latest
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: myCofigmap
+              mountpath: /
+      volumes:
+        - name: myConfigmap
+          configMap:
+            name: simpleTextFile

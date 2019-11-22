@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    openebs.io/controller-service: jiva-controller-svc
+  name: jiva-ctrl-svc
+spec:
+  ports:
+  - name: iscsi
+    port: 3260
+    protocol: TCP
+    targetPort: 3260
+  - name: api
+    port: 9501
+    protocol: TCP
+    targetPort: 9501
+  selector:
+    openebs.io/controller: jiva-controller

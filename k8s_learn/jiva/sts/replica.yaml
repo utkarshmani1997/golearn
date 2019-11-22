@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: jiva-replica
+  labels:
+    openebs.io/replica: jiva-replica
+spec:
+  serviceName: "openebs"
+  replicas: 2
+  selector:
+    matchLabels:
+      openebs.io/replica: jiva-replica
+  template:
+    metadata:
+      labels:
+        openebs.io/replica: jiva-replica
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                openebs.io/replica: jiva-replica
+            topologyKey: "kubernetes.io/hostname"
+      containers:
+      - args:
+        - replica
+        - --frontendIP
+        - jiva-ctrl-svc.default.svc.cluster.local
+        - --size
+        - 5G
+        - /openebs
+        securityContext:
+          privileged: true
+        command:
+        - launch
+        name: jiva-replica
+        image: quay.io/openebs/jiva:1.2.0
+        ports:
+        - containerPort: 9502
+          protocol: TCP
+        - containerPort: 9503
+          protocol: TCP
+        - containerPort: 9504
+          protocol: TCP
+        volumeMounts:
+        - name: openebs
+          mountPath: /openebs
+  volumeClaimTemplates:
+  - metadata:
+      name: openebs
+    spec:
+      storageClassName: openebs-hostpath
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 5Gi
