@@ -41,7 +41,6 @@ func main() {
 				fmt.Println("ping...")
 				ping(timeout)
 				fmt.Println("Done")
-
 			}
 		}
 	}(exit, timeout)

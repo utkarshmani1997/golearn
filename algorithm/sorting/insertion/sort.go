@@ -1,11 +1,14 @@
-package main
+package insertion
 
-import "fmt"
-
-func main() {
-	var a = []int{4, 1, 7, 2, 12, 9, 10, 13, 5, 3, 6, 8}
+// Time complexity:
+// Best case: when all elements are sorted omega(n), because only
+// comparison loop needs to be executed
+// Worst case: when all the elements are not sorted theta(n^2)
+func Sort(a []int) []int {
 	for i := 1; i < len(a); i++ {
 		key := a[i]
+		// compare to the previous location
+		// till the situation is satisfied
 		j := i - 1
 		for j >= 0 && a[j] > key {
 			a[j+1] = a[j]
@@ -13,5 +16,5 @@ func main() {
 		}
 		a[j+1] = key
 	}
-	fmt.Println(a)
+	return a
 }
