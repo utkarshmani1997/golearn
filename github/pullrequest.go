@@ -13,9 +13,18 @@ import (
 
 const (
 	helpText = `
-Example: listPRs <orgname> <repo> <state>
-supported state: all, open, closed
-	`
+Command: listPRs <orgname> <repo> <state> <start_time> <end_time> <no_of_pages>
+
+supported args:
+	state: all, open, closed
+	orgname: organization name
+	repo: repository name
+	start time: 2019-10-01T00:00:00Z
+	end time: 2019-10-01T00:00:00Z
+	no of pages: default is 4
+
+Example: ./github openebs maya all 2019-10-01T00:00:00Z 2019-10-01T00:00:00Z 5
+`
 )
 
 type PullRequest struct {
@@ -33,15 +42,46 @@ type User struct {
 }
 
 func main() {
+	var (
+		startDate, endDate time.Time
+		pages              int = 4
+	)
+
+	sd, ed := "2019-10-01T00:00:00Z", "2019-10-30T23:59:00Z"
 	pulls := map[json.Number]PullRequest{}
+	var err error
 	flag.Parse()
-	if len(os.Args) < 2 {
+	if len(os.Args) < 4 {
 		panic(helpText)
 	}
 	org := flag.Arg(0)
 	repo := flag.Arg(1)
 	state := flag.Arg(2)
-	for i := 0; i < 4; i++ {
+
+	if len(flag.Arg(3)) != 0 {
+		sd = flag.Arg(3)
+	}
+	startDate, err = time.Parse(time.RFC3339, sd)
+	if err != nil {
+		panic(err)
+	}
+
+	if len(flag.Arg(4)) != 0 {
+		ed = flag.Arg(4)
+	}
+	endDate, err = time.Parse(time.RFC3339, ed)
+	if err != nil {
+		panic(err)
+	}
+
+	if len(flag.Arg(5)) != 0 {
+		pages, err = strconv.Atoi(flag.Arg(5))
+		if err != nil {
+			panic(err)
+		}
+	}
+
+	for i := 0; i < pages; i++ {
 		resp, err := http.Get("https://api.github.com/repos/" + org + "/" + repo + "/pulls?state=" + state + "&page=" + strconv.Itoa(i))
 		if err != nil {
 			panic(err)
@@ -66,26 +106,14 @@ func main() {
 			if err != nil {
 				panic(err)
 			}
-			startDate := "2019-10-01T00:00:00Z"
-			tt, err := time.Parse(time.RFC3339, startDate)
-			if err != nil {
-				panic(err)
-			}
-
-			endDate := "2019-10-30T23:59:00Z"
-			ttt, err := time.Parse(time.RFC3339, endDate)
-			if err != nil {
-				panic(err)
-			}
-
-			if t.After(tt) && t.Before(ttt) {
+			if t.After(startDate) && t.Before(endDate) {
 				_, ok := pulls[p.ID]
 				if !ok {
 					pulls[p.ID] = p
 				}
 			}
-			resp.Body.Close()
 		}
+		resp.Body.Close()
 	}
 
 	data, err := json.MarshalIndent(&pulls, "", "\n")
