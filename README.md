@@ -1,4 +1,4 @@
-# golearn
+# Golearn
 ## Learning Go <br>
 I have just started learning Go.<br>
 This repository contains very basic programs in Go.<br>
