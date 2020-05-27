@@ -4,6 +4,7 @@ import "fmt"
 
 type X struct {
 	y []Z
+	z Z
 }
 
 type Y struct {
@@ -22,6 +23,7 @@ type W struct {
 func (x *X) inc() {
 	for i := range x.y {
 		x.y[i].x++
+		x.z.x++
 	}
 }
 
@@ -45,6 +47,9 @@ func main() {
 			{x: 3},
 			{x: 4},
 			{x: 5},
+		},
+		z: Z{
+			x: 10,
 		},
 	}
 

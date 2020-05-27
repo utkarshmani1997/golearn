@@ -5,7 +5,8 @@ var f = func(i int) {
 }
 
 func main() {
-	f := func(i int) {
+	var f func(x int)
+	f = func(i int) {
 		print(i)
 		if i > 0 {
 			f(i - 1)

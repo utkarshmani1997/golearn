@@ -24,7 +24,8 @@ func main() {
 		}
 	*/
 	fmt.Println("Removing")
-	if err := os.Remove("file1.txt"); err != nil {
+	os.Chmod("file1.txt")
+	if err := os.Remove("tmp"); err != nil && !os.IsNotExist(err) {
 		panic(err)
 	}
 

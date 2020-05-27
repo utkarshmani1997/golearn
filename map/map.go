@@ -52,4 +52,8 @@ func main() {
 	} else {
 		fmt.Println("not found")
 	}
+
+	for k, v := range m {
+		fmt.Println(k, v)
+	}
 }

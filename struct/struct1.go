@@ -4,6 +4,7 @@ import "fmt"
 
 type X struct {
 	a int
+	b Y
 }
 
 type Y struct {
@@ -24,6 +25,9 @@ func Inc(x *X) {
 	}
 	*/
 	x.a = 15
+	x.b = Y{
+		b: 100,
+	}
 }
 
 func main() {
@@ -35,8 +39,11 @@ func main() {
 		b: 10,
 	}
 
+	//x.b = y
+
 	//	x.xInc()
 	//	y.yInc()
 	Inc(&x)
+	x.xInc()
 	fmt.Println(x, y)
 }

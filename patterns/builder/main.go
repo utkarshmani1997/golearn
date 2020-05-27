@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"reflect"
 
 	"github.com/utkarshmani1997/golearn/patterns/builder/pkg/biscuit/salty"
 	"github.com/utkarshmani1997/golearn/patterns/builder/pkg/biscuit/sweet"
@@ -30,4 +31,12 @@ func main() {
 		Mix().
 		Pack()
 	fmt.Println(saltyBiscuit)
+
+	fooType := reflect.TypeOf(sweet.Sweet{})
+	fmt.Println(fooType.Method(0))
+	for i := 0; i < fooType.NumMethod(); i++ {
+		method := fooType.Method(i)
+		fmt.Println(method.Name)
+	}
+
 }

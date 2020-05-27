@@ -21,6 +21,7 @@ type Car struct {
 }
 
 type Bike struct {
+	//Car
 	maxPassengers int
 	spec          specs
 }
@@ -39,6 +40,7 @@ func (c Car) NoOfTyres() int {
 }
 
 func (c Car) passengers() int {
+	fmt.Println("from car")
 	return c.maxNoOfPassengers
 }
 
@@ -55,6 +57,7 @@ func (b Bike) NoOfTyres() int {
 }
 
 func (b Bike) passengers() int {
+	fmt.Println("from bike")
 	return b.maxPassengers
 }
 
@@ -86,7 +89,9 @@ func displayInfo(v []Vehicle) {
 
 func main() {
 	vehicle1 := Car{spec: specs{gears: 6, tyres: 5, ty: "Car"}, maxNoOfPassengers: 5}
+	//	vehicle2 := Bike{//Car: vehicle1}
 	vehicle2 := Bike{spec: specs{gears: 4, tyres: 2, ty: "Bike"}, maxPassengers: 2}
+
 	vehicle3 := Airplane{spec: specs{gears: 25, tyres: 2, ty: "Airplane"}, passenger: 200}
 	vehicles := []Vehicle{vehicle1, vehicle2, vehicle3}
 	displayInfo(vehicles)
