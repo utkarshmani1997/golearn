@@ -7,8 +7,20 @@ import (
 	"time"
 )
 
+type ContextDeadlineExceeded struct {
+}
+
+func (t ContextDeadlineExceeded) Error() string {
+	return context.DeadlineExceeded.Error()
+}
+
+func IsContextDeadlineExceeded(err error) bool {
+	_, ok := stacktrace.RootCause(err).(*ContextDeadlineExceeded)
+	return ok
+}
+
 func main() {
-	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Millisecond)
 	defer cancel()
 
 	cmd := exec.CommandContext(ctx, "./dummy")
