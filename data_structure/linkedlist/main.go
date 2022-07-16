@@ -20,12 +20,12 @@ type linklist interface {
 }
 
 func (l *list) add(val string) {
-	node := &node{
+	n := &node{
 		val:  val,
 		next: nil,
 	}
 	if l.head == nil {
-		l.head = node
+		l.head = n
 		l.length++
 		return
 	}
@@ -33,7 +33,7 @@ func (l *list) add(val string) {
 	for next.next != nil {
 		next = next.next
 	}
-	next.next = node
+	next.next = n
 	l.length++
 }
 
@@ -43,8 +43,7 @@ func (l *list) addAtIndex(idx int, val string) {
 		return
 	}
 	node := &node{
-		val:  val,
-		next: nil,
+		val: val,
 	}
 	next := l.head
 	prev := l.head
@@ -55,12 +54,13 @@ func (l *list) addAtIndex(idx int, val string) {
 	if next != nil {
 		prev.next = node
 		node.next = next
+		l.length++
 	}
 }
 
 func (l *list) remove(idx int) {
 	next := l.head
-	prev := l.head
+	var prev *node
 	for i := 0; i < idx; i++ {
 		prev = next
 		next = next.next
@@ -81,55 +81,18 @@ func (l *list) get(idx int) *node {
 
 func main() {
 	l := &list{}
+	fmt.Println(l.get(0), l.length)
 	l.add("a")
-	head := add(nil, "a")
-	add(head, "b")
 	l.add("b")
 	l.add("c")
-	add(head, "c")
 	l.add("d")
-	add(head, "d")
 	l.add("e")
-	add(head, "e")
 	l.add("f")
-	add(head, "f")
 	l.remove(3)
 	l.addAtIndex(5, "d")
 	next := l.head
-	next1 := head
-	i := 0
 	for next != nil {
-		fmt.Println(l.get(i).val, l.length)
-		fmt.Println(next1.val)
-		next = next.next
-		next1 = next1.next
-		i++
-	}
-}
-func add(head *node, val string) *node {
-	entry := &node{
-		val:  val,
-		next: nil,
-	}
-	if head == nil {
-		head = entry
-		return head
-	}
-	next := head
-	prev := head
-	for next != nil {
-		prev = next
+		fmt.Println(next.val, l.length)
 		next = next.next
 	}
-	prev.next = entry
-	return head
-}
-
-func addAtIndex(idx int, val string) {
-}
-
-func remove(idx int) {
-}
-
-func get(idx int) {
 }

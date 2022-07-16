@@ -17,6 +17,7 @@ type stack interface {
 	pop() interface{}
 	peek() interface{}
 	size() int
+	show()
 }
 
 func New() stack {
@@ -52,12 +53,17 @@ func (l *list) size() int {
 	return l.length
 }
 
+func (l *list) show() {
+	for next := l.top; next != nil; next = l.top {
+		val := l.pop()
+		fmt.Println(val, l.length)
+	}
+}
+
 func main() {
 	l := New()
 	l.push(1)
 	l.push(2)
 	l.push(3)
-	fmt.Println(l.peek(), l.size())
-	fmt.Println(l.pop(), l.size())
-	fmt.Println(l.peek(), l.size())
+	l.show()
 }
